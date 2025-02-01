@@ -60,8 +60,8 @@ jobs:
             ibgateway-*
           rm ibgateway-*
 
-      - name: Update ${{ inputs.channel }}/
-        run: ./build.sh ${{ inputs.channel }} ${{ needs.check-new-version.outputs.build_version }}
+      #- name: Update ${{ inputs.channel }}/
+      #  run: ./build.sh ${{ inputs.channel }} ${{ needs.check-new-version.outputs.build_version }}
 
       # - name: Set up Python
       #   uses: actions/setup-python@v5
@@ -84,19 +84,19 @@ jobs:
       #     USERNAME: ${{ secrets.USERNAME }}
       #     PASSWORD: ${{ secrets.PASSWORD }}
 
-      - name: Commit with appropriate docker tag
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: Update ${{ inputs.channel }} to ${{ needs.check-new-version.outputs.build_version }}
+      #- name: Commit with appropriate docker tag
+      #  uses: stefanzweifel/git-auto-commit-action@v5
+      #  with:
+      #    commit_message: Update ${{ inputs.channel }} to ${{ needs.check-new-version.outputs.build_version }}
 
           # By itself, will not trigger docker.yml action due to Github restrictions
-          tagging_message: ${{ needs.check-new-version.outputs.tag }}
+      #    tagging_message: ${{ needs.check-new-version.outputs.tag }}
 
-  build:
-    name: Trigger Docker Build Action
-    needs:
-      - test-and-commit
-      - check-new-version
-    uses: ./.github/workflows/docker.yml
-    with:
-      tag: ${{ needs.check-new-version.outputs.tag }}
+  #build:
+  #  name: Trigger Docker Build Action
+  #  needs:
+  #    - test-and-commit
+  #    - check-new-version
+  #  uses: ./.github/workflows/docker.yml
+  #  with:
+  #    tag: ${{ needs.check-new-version.outputs.tag }}
