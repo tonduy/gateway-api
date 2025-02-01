@@ -3,10 +3,11 @@ name: Start detect-releases.yml
 # https://stackoverflow.com/questions/65384420/how-do-i-make-a-github-action-matrix-element-conditional
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 8 * * *" # 8AM UTC daily
 
-  workflow_dispatch:
+
 
 jobs:
   stable:
@@ -14,9 +15,3 @@ jobs:
     uses: ./.github/workflows/detect-releases.yml
     with:
       channel: stable
-
-  latest:
-    name: Check latest release
-    uses: ./.github/workflows/detect-releases.yml
-    with:
-      channel: latest
